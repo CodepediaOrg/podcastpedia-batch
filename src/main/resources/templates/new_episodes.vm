@@ -1,0 +1,40 @@
+<html>
+	<body>
+		#if( $XHTML )
+		  #set( $br = "<br />" )
+		#else
+		  #set( $br = "<br>" )
+		#end
+			
+		Dear $user.email,
+		<h2>Check out the latest episodes from your podcast subscriptions for $date</h2>
+		<ul>
+			#foreach( $podcast in $user.podcasts )
+			    <li><strong>$podcast.title</strong>
+					<ul>
+					#foreach( $episode in $podcast.episodes )
+					    <li>
+					   		<a href="http://www.podcastpedia.org/podcasts/${podcast.podcastId}/$podcast.titleInUrl/$episode.id.episodeId/$episode.titleInUrl"/>$episode.title</a>
+					    </li>
+					#end
+					</ul>
+			    </li>
+			#end
+		<ul>
+		
+		<p style="margin-top:21px">
+			Thank you for sharing and connecting with us
+			$br
+			<a href="https://www.facebook.com/Podcastpedia" style="text-decoration: none">
+				<img height="21" width="21" src="http://www.podcastpedia.org/static/images/logos/fb_51.png" style="margin-right:5px;margin-top:3px">
+			</a>
+			<a href="https://twitter.com/podcastpedia" style="text-decoration: none">
+				<img height="21" width="21" src="http://www.podcastpedia.org/static/images/logos/twitter_51.png" style="margin-right:5px;margin-top:3px">
+			</a>
+			<a href="https://google.com/+PodcastpediaOrg " style="text-decoration: none">
+				<img height="21" width="21" src="http://www.podcastpedia.org/static/images/logos/gplus_51.png" style="margin-right:5px;margin-top:3px">
+			</a>									  
+		</p>
+		  
+	</body>
+</html>		
