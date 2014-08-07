@@ -22,12 +22,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.ClassPathResource;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 @Configuration
 @EnableBatchProcessing
+@Profile({"dev_work"})
 @Import({StandaloneInfrastructureConfiguration.class, ServicesConfiguration.class})
 public class AddPodcastJobConfiguration {
 

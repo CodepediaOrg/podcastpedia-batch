@@ -19,11 +19,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Profile;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 @Configuration
 @EnableBatchProcessing
+@Profile({"dev_work-notify-job"})
 @Import({StandaloneInfrastructureConfiguration.class, NotifySubscribersServicesConfiguration.class})
 public class NotifySubscribersJobConfiguration {
 
