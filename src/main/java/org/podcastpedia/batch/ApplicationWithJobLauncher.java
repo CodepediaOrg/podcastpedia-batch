@@ -1,6 +1,7 @@
 package org.podcastpedia.batch;
 
 import java.util.Arrays;
+import java.util.Date;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -10,6 +11,7 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobInstance;
 import org.springframework.batch.core.JobParameters;
+import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.JobParametersInvalidException;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
@@ -36,9 +38,14 @@ public class ApplicationWithJobLauncher {
         app.setWebEnvironment(false);
         ConfigurableApplicationContext ctx= app.run(args);
         JobLauncher jobLauncher = ctx.getBean(JobLauncher.class);
+    	JobParameters jobParameters = new JobParametersBuilder()
+		.addDate("date", new Date())
+		.toJobParameters();        
         if("1".equals(args[0])){
         	//addNewPodcastJob
-        	JobExecution jobExecution = jobLauncher.run(ctx.getBean("addNewPodcastJob", Job.class), new JobParameters());
+
+        	
+        	JobExecution jobExecution = jobLauncher.run(ctx.getBean("addNewPodcastJob", Job.class), jobParameters);
         	
         	BatchStatus batchStatus = jobExecution.getStatus();
         	while(batchStatus.isRunning()){
@@ -47,13 +54,14 @@ public class ApplicationWithJobLauncher {
         	}
         	log.info(String.format("*********** Exit status: %s", jobExecution.getExitStatus().getExitCode()));
         	JobInstance jobInstance = jobExecution.getJobInstance();
+        	log.info(String.format("********* Name of the job %s", jobInstance.getJobName()));
         	
         	log.info(String.format("*********** job instance Id: %d", jobInstance.getId()));
         	
         	System.exit(0);
         	
         } else {
-        	jobLauncher.run(ctx.getBean("newEpisodesNotificationJob",  Job.class), new JobParameters());   
+        	jobLauncher.run(ctx.getBean("newEpisodesNotificationJob",  Job.class), jobParameters);   
         }   
         
 //        System.out.println("************************************************************************************");        
@@ -67,7 +75,7 @@ public class ApplicationWithJobLauncher {
 //        }
 //        
 //        System.out.println("************************************************************************************");        
-    
+        System.exit(0);
     }
-
+    
 }
