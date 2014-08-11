@@ -40,12 +40,13 @@ public class ApplicationWithJobLauncher {
         JobLauncher jobLauncher = ctx.getBean(JobLauncher.class);
     	JobParameters jobParameters = new JobParametersBuilder()
 		.addDate("date", new Date())
-		.toJobParameters();        
+		.toJobParameters();  
+    	
         if("1".equals(args[0])){
         	//addNewPodcastJob
-
+        	Job addNewPodcastJob = ctx.getBean("addNewPodcastJob", Job.class);
         	
-        	JobExecution jobExecution = jobLauncher.run(ctx.getBean("addNewPodcastJob", Job.class), jobParameters);
+        	JobExecution jobExecution = jobLauncher.run(addNewPodcastJob, jobParameters);
         	
         	BatchStatus batchStatus = jobExecution.getStatus();
         	while(batchStatus.isRunning()){
@@ -64,17 +65,17 @@ public class ApplicationWithJobLauncher {
         	jobLauncher.run(ctx.getBean("newEpisodesNotificationJob",  Job.class), jobParameters);   
         }   
         
-//        System.out.println("************************************************************************************");        
-//        
-//        System.out.println("Let's inspect the beans provided by Spring Boot:");
-//
-//        String[] beanNames = ctx.getBeanDefinitionNames();
-//        Arrays.sort(beanNames);
-//        for (String beanName : beanNames) {
-//            System.out.println(beanName);
-//        }
-//        
-//        System.out.println("************************************************************************************");        
+        System.out.println("************************************************************************************");        
+        
+        System.out.println("Let's inspect the beans provided by Spring Boot:");
+
+        String[] beanNames = ctx.getBeanDefinitionNames();
+        Arrays.sort(beanNames);
+        for (String beanName : beanNames) {
+            System.out.println(beanName);
+        }
+        
+        System.out.println("************************************************************************************");        
         System.exit(0);
     }
     

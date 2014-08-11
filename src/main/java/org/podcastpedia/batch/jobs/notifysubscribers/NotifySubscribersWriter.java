@@ -8,7 +8,7 @@ import org.podcastpedia.batch.common.entities.User;
 import org.podcastpedia.batch.jobs.notifysubscribers.service.EmailNotificationService;
 import org.springframework.batch.item.ItemWriter;
 
-public class Writer implements ItemWriter<User> {
+public class NotifySubscribersWriter implements ItemWriter<User> {
 
 	@Inject
 	private EmailNotificationService emailNotificationService;
