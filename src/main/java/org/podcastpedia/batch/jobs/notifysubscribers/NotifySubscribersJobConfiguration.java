@@ -19,13 +19,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.Profile;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 @Configuration
 @EnableBatchProcessing
-@Profile({"dev_work-notify-job"})
 @Import({StandaloneInfrastructureConfiguration.class, NotifySubscribersServicesConfiguration.class})
 public class NotifySubscribersJobConfiguration {
 
@@ -42,17 +40,17 @@ public class NotifySubscribersJobConfiguration {
 	public Job newEpisodesNotificationJob(){
 		return jobBuilders.get("newEpisodesNotificationJob")
 				.listener(protocolListener())
-				.start(step())
+				.start(notifySubscribersStep())
 				.build();
 	}	
 	
 	@Bean
-	public Step step(){
-		return stepBuilders.get("step")
+	public Step notifySubscribersStep(){
+		return stepBuilders.get("notifySubscribersStep")
 				.<User,User>chunk(1) //important to be one in this case to commit after every line read
-				.reader(reader())
-				.processor(processor())
-				.writer(writer())
+				.reader(notifySubscribersReader())
+				.processor(notifySubscribersProcessor())
+				.writer(notifySubscribersWriter())
 				.listener(logProcessListener())
 				.faultTolerant()
 				.skipLimit(10) //default is set to 0
@@ -61,7 +59,7 @@ public class NotifySubscribersJobConfiguration {
 	}	
 	
 	@Bean
-	public ItemReader<User> reader(){
+	public ItemReader<User> notifySubscribersReader(){
 		
 		JdbcCursorItemReader<User> reader = new JdbcCursorItemReader<User>();
 		String sql = "select * from users where is_email_subscriber is not null";
@@ -80,13 +78,13 @@ public class NotifySubscribersJobConfiguration {
 
 	/** configure the processor related stuff */
     @Bean
-    public ItemProcessor<User, User> processor() {
+    public ItemProcessor<User, User> notifySubscribersProcessor() {
         return new NotifySubscribersItemProcessor();
     }
     
     @Bean
-    public ItemWriter<User> writer() {
-    	return new Writer();
+    public ItemWriter<User> notifySubscribersWriter() {
+    	return new NotifySubscribersWriter();
     }
     
 	@Bean

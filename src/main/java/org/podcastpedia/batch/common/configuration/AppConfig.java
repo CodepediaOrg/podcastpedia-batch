@@ -13,12 +13,12 @@ import org.springframework.context.annotation.Configuration;
 public class AppConfig {
     
     @Bean
-    public ApplicationContextFactory addNewPodcastJob(){
+    public ApplicationContextFactory addNewPodcastJobs(){
     	return new GenericApplicationContextFactory(AddPodcastJobConfiguration.class);
     }
     
     @Bean
-    public ApplicationContextFactory newEpisodesNotificationJob(){
+    public ApplicationContextFactory newEpisodesNotificationJobs(){
     	return new GenericApplicationContextFactory(NotifySubscribersJobConfiguration.class);
     }    
     
