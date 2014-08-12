@@ -73,7 +73,7 @@ public class NotifySubscribersItemProcessor implements ItemProcessor<User, User>
 					podcastsToNotify.add(podcast);
 					
 					podcast = nextEpisode.getPodcast();
-					episodesForPodcast.clear();
+					episodesForPodcast =  new ArrayList<>();
 					episodesForPodcast.add(nextEpisode);					
 				}								
 			}
