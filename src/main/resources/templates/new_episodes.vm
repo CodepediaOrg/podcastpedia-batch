@@ -6,8 +6,8 @@
 		  #set( $br = "<br>" )
 		#end
 			
-		Dear $user.email,
-		<h2>Check out the latest episodes from your podcast subscriptions for $date</h2>
+		
+		<h2>$user.name, check out the latest episodes from your podcast subscriptions for $tools.date</h2>
 		<ul>
 			#foreach( $podcast in $user.podcasts )
 			    <li><strong>$podcast.title</strong>

@@ -1,0 +1,78 @@
+<html>
+	<body>
+		#if( $XHTML )
+		  #set( $br = "<br />" )
+		#else
+		  #set( $br = "<br>" )
+		#end
+		<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
+		    <tr>
+		        <td align="center" valign="top">
+		            <table border="0" cellpadding="20" cellspacing="0" width="600" id="emailContainer" bgcolor="#185b8b">
+		                <tr>
+		                    <td align="center" valign="top">
+		                        <table border="0" cellpadding="5" cellspacing="0" width="100%" id="emailHeader" bgcolor="#f5f5f6">
+		                            <tr>
+		                                <td align="left" valign="top">
+		                                    <h2 color="#053855">Podcastpedia.org, knowledge to go</h2>
+		                                </td>
+		                            </tr>
+		                        </table>
+		                    </td>
+		                </tr>
+		                <tr>
+		                    <td align="center" valign="top">
+		                        <table border="0" cellpadding="2" cellspacing="0" width="100%" id="emailBody"  bgcolor="#f5f5f6">
+		                            <tr>
+		                                <td align="left" valign="top">
+											<h3>$user.name, check out the latest episodes from your podcast subscriptions for $date</h3>
+		                                </td>
+		                            </tr>		                        
+									#foreach( $podcast in $user.podcasts )                        
+		                            <tr>
+		                                <td align="left" valign="top" bgcolor="#f0f0f0">
+										    <strong>$podcast.title</strong>
+												<ul>
+												#foreach( $episode in $podcast.episodes )
+												    <li style="padding:3px 0px;">
+												   		<a href="http://www.podcastpedia.org/podcasts/${podcast.podcastId}/$podcast.titleInUrl/$episode.id.episodeId/$episode.titleInUrl"/>$episode.title</a>
+												    </li>
+												#end
+												</ul>
+										</td>                               
+		                            </tr>
+									#end                             
+		                        </table>
+		                    </td>
+		                </tr>
+		                <tr>
+		                    <td align="center" valign="top">
+		                        <table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailFooter">
+		                            <tr>
+		                                <td align="left" valign="top">
+		                                    <a href="http://www.podcastpedia.org/unsubscribe/all" style="text-decoration: none" style="font-size:0.7em;">Unsubscribe from all podcasts.</a>
+		                                </td>
+		                            </tr>
+		                        </table>
+		                    </td>
+		                </tr>
+		            </table>
+		        </td>
+		    </tr>
+		</table>	
+		<p style="margin-top:21px">
+			Thank you for sharing and connecting with us
+			$br
+			<a href="https://www.facebook.com/Podcastpedia" style="text-decoration: none">
+				<img height="21" width="21" src="http://www.podcastpedia.org/static/images/logos/fb_51.png" style="margin-right:5px;margin-top:3px">
+			</a>
+			<a href="https://twitter.com/podcastpedia" style="text-decoration: none">
+				<img height="21" width="21" src="http://www.podcastpedia.org/static/images/logos/twitter_51.png" style="margin-right:5px;margin-top:3px">
+			</a>
+			<a href="https://google.com/+PodcastpediaOrg " style="text-decoration: none">
+				<img height="21" width="21" src="http://www.podcastpedia.org/static/images/logos/gplus_51.png" style="margin-right:5px;margin-top:3px">
+			</a>									  
+		</p>
+		  
+	</body>
+</html>		

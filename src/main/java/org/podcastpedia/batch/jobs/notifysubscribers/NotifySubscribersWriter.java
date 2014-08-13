@@ -16,7 +16,9 @@ public class NotifySubscribersWriter implements ItemWriter<User> {
 	@Override
 	public void write(List<? extends User> items) throws Exception {
 
-		for(User item : items){			
+		for(User item : items){		
+			String[] split = item.getEmail().split("@");
+			item.setName(Character.toUpperCase(split[0].charAt(0)) + split[0].substring(1));
 			System.out.println("************* WRITER **************");
 			emailNotificationService.sendNewEpisodesNotification(item);
 		}

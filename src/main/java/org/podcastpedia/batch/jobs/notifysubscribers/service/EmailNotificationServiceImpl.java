@@ -42,7 +42,7 @@ public class EmailNotificationServiceImpl implements EmailNotificationService {
 			     model.put("user", emailSubscriber);
 			     
 			     String text = VelocityEngineUtils.mergeTemplateIntoString(
-			        velocityEngine, "templates/new_episodes.vm", "UTF-8", model);
+			        velocityEngine, "templates/new_episodes_table.vm", "UTF-8", model);
 			     
 			     message.setText(text, true);
 				 System.out.println(text);
