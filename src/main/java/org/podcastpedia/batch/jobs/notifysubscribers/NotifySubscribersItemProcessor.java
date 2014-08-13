@@ -13,6 +13,7 @@ import org.podcastpedia.batch.common.entities.UpdateFrequency;
 import org.podcastpedia.batch.common.entities.User;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 
 @Scope("step")
@@ -20,6 +21,9 @@ public class NotifySubscribersItemProcessor implements ItemProcessor<User, User>
 
 	@Autowired
 	EntityManager em;
+	
+	@Value("#{jobParameters[updateFrequency]}")
+	String updateFrequency;
 	
 	@Override
 	public User process(User item) throws Exception {
@@ -42,7 +46,7 @@ public class NotifySubscribersItemProcessor implements ItemProcessor<User, User>
 		String sqlInnerJoinEpisodes = "select e from User u JOIN u.podcasts p JOIN p.episodes e WHERE p.updateFrequency=?1 AND"
 				+ " e.isNew IS NOT NULL order by e.podcast.podcastId ASC, e.publicationDate ASC";
 		TypedQuery<Episode> queryInnerJoinepisodes = em.createQuery(sqlInnerJoinEpisodes, Episode.class);       
-		queryInnerJoinepisodes.setParameter(1, UpdateFrequency.WEEKLY);		
+		queryInnerJoinepisodes.setParameter(1, UpdateFrequency.valueOf(updateFrequency));		
 				
 		List<Episode> newEpisodes = queryInnerJoinepisodes.getResultList();
 		

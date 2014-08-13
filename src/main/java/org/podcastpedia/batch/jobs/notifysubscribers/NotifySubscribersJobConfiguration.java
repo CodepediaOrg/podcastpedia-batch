@@ -11,6 +11,7 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
@@ -78,6 +79,7 @@ public class NotifySubscribersJobConfiguration {
 
 	/** configure the processor related stuff */
     @Bean
+    @StepScope
     public ItemProcessor<User, User> notifySubscribersProcessor() {
         return new NotifySubscribersItemProcessor();
     }
