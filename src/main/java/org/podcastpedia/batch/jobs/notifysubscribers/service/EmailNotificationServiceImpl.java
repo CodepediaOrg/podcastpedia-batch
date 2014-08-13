@@ -1,7 +1,9 @@
 package org.podcastpedia.batch.jobs.notifysubscribers.service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -25,7 +27,6 @@ public class EmailNotificationServiceImpl implements EmailNotificationService {
 	public void sendNewEpisodesNotification(final User emailSubscriber) {
 		MimeMessagePreparator preparator = new MimeMessagePreparator() {
 
-
 			@SuppressWarnings({ "rawtypes", "unchecked" })
 			@Override
 			public void prepare(MimeMessage mimeMessage) throws Exception {
@@ -40,6 +41,11 @@ public class EmailNotificationServiceImpl implements EmailNotificationService {
 			     
 			     Map model = new HashMap();	
 			     model.put("user", emailSubscriber);
+			     
+			     //set today's date
+			     Date now = new Date();
+			     SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.US);
+			     model.put("today", dateFormat.format(now));
 			     
 			     String text = VelocityEngineUtils.mergeTemplateIntoString(
 			        velocityEngine, "templates/new_episodes_table.vm", "UTF-8", model);
