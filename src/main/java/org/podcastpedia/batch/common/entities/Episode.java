@@ -14,7 +14,6 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="episodes")
-//@IdClass(EpisodeId.class)
 public class Episode implements Serializable{
 
 	/**
@@ -24,33 +23,23 @@ public class Episode implements Serializable{
 	
 	@EmbeddedId
 	private EpisodeId id;
-
-//	/** identifies the podcast the episode belongs to */
-//	@Id
-//	@Column(name="podcast_id")
-//	public Integer podcastId;
-//	
-//	/** episode id - unique identifier of a podcast's episode */
-//	@Id
-//	@Column(name="episode_id")
-//	public Integer episodeId;
 	
 	/** description of the episode */
 	@Column(name="description")
-	public String description;
+	private String description;
 	
 	/** title of the episode */ 
 	@Column(name="title")
-	public String title;
+	private String title;
 
 	/** link of the episode - this should be the link to the episode on the provider's website
 	 * Some providers set this as the url to the media file */
 	@Column(name="link")
-	public String link;
+	private String link;
 	
 	/** this is the url to the media (audio or video) of this episode */
 	@Column(name="media_url")
-	public String mediaUrl; 
+	private String mediaUrl; 
 				
 	/** publication date of the episode */
 	@Column(name="publication_date")
@@ -94,23 +83,6 @@ public class Episode implements Serializable{
 	private Podcast podcast;
 		
 	public Episode(){}
-
-//	public Integer getPodcastId() {
-//		return podcastId;
-//	}
-//
-//	public void setPodcastId(Integer podcastId) {
-//		this.podcastId = podcastId;
-//	}
-//
-//	public Integer getEpisodeId() {
-//		return episodeId;
-//	}
-//
-//	public void setEpisodeId(Integer episodeId) {
-//		this.episodeId = episodeId;
-//	}
-
 	
 	public String getDescription() {
 		return description;
