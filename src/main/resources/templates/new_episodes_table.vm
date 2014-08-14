@@ -11,7 +11,7 @@
 		            <table border="0" cellpadding="10" cellspacing="0" width="600" id="emailContainer" bgcolor="#185b8b">
 		                <tr>
 		                    <td align="center" valign="top">
-		                        <table border="0" cellpadding="5" cellspacing="0" width="100%" id="emailHeader" bgcolor="#f5f5f6">
+		                        <table border="0" cellpadding="10" cellspacing="0" width="100%" id="emailHeader" bgcolor="#f5f5f6">
 		                            <tr>
 		                                <td align="left" valign="top">
 		                                    <h2 style="color:#053855">Podcastpedia.org, knowledge to go</h2>
@@ -22,7 +22,7 @@
 		                </tr>
 		                <tr>
 		                    <td align="center" valign="top">
-		                        <table border="0" cellpadding="2" cellspacing="0" width="100%" id="emailBody" bgcolor="#f5f5f6">
+		                        <table border="0" cellpadding="10" cellspacing="0" width="100%" id="emailBody" bgcolor="#f5f5f6">
 		                            <tr>
 		                                <td align="left" valign="top">
 											<h3>$user.name, check out the latest episodes from your podcast subscriptions for $today</h3>
@@ -36,8 +36,8 @@
 											#set( $podcastUrl = "http://www.podcastpedia.org/podcasts/$podcast.podcastId/$podcast.titleInUrl/" )
 										#end                   
 			                            <tr>
-			                                <td align="left" valign="top" bgcolor="#f0f0f0">		                                
-			                                	<table border="0" cellpadding="10" cellspacing="0" width="100%">
+			                                <td align="left" valign="top">		                                
+			                                	<table border="0" cellpadding="10" cellspacing="0" width="100%" bgcolor="#DCDCDD">
 			                                		<tr>
 			                                			<td align="center" valign="top" width="25%" class="imageColumnContainer">
 			                                				 <a href="$podcastUrl" target="_blank"><img src="${podcast.urlOfImageToDisplay}" style="width:150px; height:150px;" /></a>
