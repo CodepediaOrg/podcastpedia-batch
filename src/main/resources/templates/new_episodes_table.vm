@@ -56,7 +56,22 @@
 		                                		</table>																							
 											</td>                               
 			                            </tr>
-									#end                             
+									#end   
+		                            <tr>
+		                                <td align="center" valign="top">
+											Thank you for sharing and connecting with us
+											$br
+											<a href="https://www.facebook.com/Podcastpedia" style="text-decoration: none">
+												<img height="21" width="21" src="http://www.podcastpedia.org/static/images/logos/fb_51.png" style="margin-right:5px;margin-top:3px">
+											</a>
+											<a href="https://twitter.com/podcastpedia" style="text-decoration: none">
+												<img height="21" width="21" src="http://www.podcastpedia.org/static/images/logos/twitter_51.png" style="margin-right:5px;margin-top:3px">
+											</a>
+											<a href="https://google.com/+PodcastpediaOrg " style="text-decoration: none">
+												<img height="21" width="21" src="http://www.podcastpedia.org/static/images/logos/gplus_51.png" style="margin-right:5px;margin-top:3px">
+											</a>
+		                                </td>
+		                            </tr>									                          
 		                        </table>
 		                    </td>
 		                </tr>
@@ -65,8 +80,10 @@
 		                        <table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailFooter">
 		                            <tr>
 		                                <td align="left" valign="top">
-		                                    Podcastpedia sends email summaries like these so that you can keep up with the podcasts
-		                                    you subscribed via email. If you no longer want to receive these updates you can <a href="http://www.podcastpedia.org/unsubscribe/all" style="text-decoration: none" style="font-size:0.7em;" target="_blank">unsubscribe from all podcasts.</a>
+			                                <span style="color:#DCDCDD; font-size:0.8em;">
+			                                    Podcastpedia sends email summaries like these so that you can keep up with the podcasts
+			                                    you subscribed via email. If you no longer want to receive these updates you can <a href="http://www.podcastpedia.org/unsubscribe/all" style="text-decoration: none" style="font-size:0.7em;" target="_blank"><span style="color:#B84A4A;">unsubscribe from all podcasts</span>.</a>
+			                                 </span>
 		                                </td>
 		                            </tr>
 		                        </table>
@@ -75,20 +92,6 @@
 		            </table>
 		        </td>
 		    </tr>
-		</table>	
-		<p style="margin-top:21px">
-			Thank you for sharing and connecting with us
-			$br
-			<a href="https://www.facebook.com/Podcastpedia" style="text-decoration: none">
-				<img height="21" width="21" src="http://www.podcastpedia.org/static/images/logos/fb_51.png" style="margin-right:5px;margin-top:3px">
-			</a>
-			<a href="https://twitter.com/podcastpedia" style="text-decoration: none">
-				<img height="21" width="21" src="http://www.podcastpedia.org/static/images/logos/twitter_51.png" style="margin-right:5px;margin-top:3px">
-			</a>
-			<a href="https://google.com/+PodcastpediaOrg " style="text-decoration: none">
-				<img height="21" width="21" src="http://www.podcastpedia.org/static/images/logos/gplus_51.png" style="margin-right:5px;margin-top:3px">
-			</a>									  
-		</p>
-		  
+		</table>			  
 	</body>
 </html>		
