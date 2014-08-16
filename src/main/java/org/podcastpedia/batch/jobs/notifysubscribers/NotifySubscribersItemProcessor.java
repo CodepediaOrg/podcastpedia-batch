@@ -29,7 +29,7 @@ public class NotifySubscribersItemProcessor implements ItemProcessor<User, User>
 	public User process(User item) throws Exception {
 				
 		String sqlInnerJoinEpisodes = "select e from User u JOIN u.podcasts p JOIN p.episodes e WHERE p.updateFrequency=?1 AND"
-				+ " e.isNew IS NOT NULL order by e.podcast.podcastId ASC, e.publicationDate ASC";
+				+ " e.isNew IS NOT NULL  AND e.availability=200 ORDER BY e.podcast.podcastId ASC, e.publicationDate ASC";
 		TypedQuery<Episode> queryInnerJoinepisodes = em.createQuery(sqlInnerJoinEpisodes, Episode.class);       
 		queryInnerJoinepisodes.setParameter(1, UpdateFrequency.valueOf(updateFrequency));		
 				
