@@ -5,3 +5,4 @@
 
 /src/main/resources/twitter4j.properties
 /src/main/resources/mail.properties
+/src/main/resources/application-prod.properties
