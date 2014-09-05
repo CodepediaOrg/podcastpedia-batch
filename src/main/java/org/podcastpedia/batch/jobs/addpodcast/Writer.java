@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 
 import org.podcastpedia.batch.common.entities.Podcast;
 import org.podcastpedia.batch.jobs.addpodcast.model.SuggestedPodcast;
-import org.podcastpedia.batch.jobs.addpodcast.service.EmailNotificationService1;
+import org.podcastpedia.batch.jobs.addpodcast.service.EmailNotificationService;
 import org.podcastpedia.batch.jobs.addpodcast.service.SocialMediaService;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class Writer implements ItemWriter<SuggestedPodcast>{
 	private EntityManager entityManager;
 	
 	@Inject
-	private EmailNotificationService1 emailNotificationService;
+	private EmailNotificationService emailNotificationService;
 	
 	@Inject
 	private SocialMediaService socialMediaService;
@@ -38,25 +38,31 @@ public class Writer implements ItemWriter<SuggestedPodcast>{
 			entityManager.flush();
 			
 			//notify submitter about the insertion and post a twitt about it 
-			StringBuffer urlOnPodcastpedia = new StringBuffer(
-					"http://www.podcastpedia.org");
-			if (podcast.getIdentifier() != null) {
-				urlOnPodcastpedia.append("/" + podcast.getIdentifier());
-			} else {
-				urlOnPodcastpedia.append("/podcasts/");
-				urlOnPodcastpedia.append(String.valueOf(podcast.getPodcastId()));
-				urlOnPodcastpedia.append("/" + podcast.getTitleInUrl());
-			}		
+			String url = buildUrlOnPodcastpedia(podcast);
 			
 			emailNotificationService.sendPodcastAdditionConfirmation(
 					suggestedPodcast.getName(), suggestedPodcast.getEmail(),
-					urlOnPodcastpedia.toString());
-//			if(podcast.getTwitterPage() != null){
-//				socialMediaService.postOnTwitterAboutNewPodcast(podcast,
-//				urlOnPodcastpedia.toString());				
-//			}					
+					url);
+			if(podcast.getTwitterPage() != null){
+				socialMediaService.postOnTwitterAboutNewPodcast(podcast,
+				url);				
+			}					
 		}
 
+	}
+
+	private String buildUrlOnPodcastpedia(Podcast podcast) {
+		StringBuffer urlOnPodcastpedia = new StringBuffer(
+				"http://www.podcastpedia.org");
+		if (podcast.getIdentifier() != null) {
+			urlOnPodcastpedia.append("/" + podcast.getIdentifier());
+		} else {
+			urlOnPodcastpedia.append("/podcasts/");
+			urlOnPodcastpedia.append(String.valueOf(podcast.getPodcastId()));
+			urlOnPodcastpedia.append("/" + podcast.getTitleInUrl());
+		}		
+		String url = urlOnPodcastpedia.toString();
+		return url;
 	}
 
 }

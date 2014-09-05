@@ -62,7 +62,7 @@ public class AddPodcastJobConfiguration {
 	public ItemReader<SuggestedPodcast> reader(){
 		FlatFileItemReader<SuggestedPodcast> reader = new FlatFileItemReader<SuggestedPodcast>();
 		reader.setLinesToSkip(1);//first line is title definition 
-		reader.setResource(new ClassPathResource("suggested-podcasts.txt"));
+		reader.setResource(new ClassPathResource("suggested-podcasts.in"));
 		reader.setLineMapper(lineMapper());
 		return reader; 
 	}
