@@ -13,7 +13,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
-public class EmailNotificationServiceImpl1 implements EmailNotificationService1 {
+public class EmailNotificationServiceImpl implements EmailNotificationService {
 	
 	@Inject
     private JavaMailSender mailSender;

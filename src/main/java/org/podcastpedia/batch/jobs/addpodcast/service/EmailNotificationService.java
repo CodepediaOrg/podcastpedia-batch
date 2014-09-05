@@ -8,7 +8,7 @@ package org.podcastpedia.batch.jobs.addpodcast.service;
  * @author adrian
  *
  */
-public interface EmailNotificationService1 {
+public interface EmailNotificationService {
 
 	/**
 	 * Sends back a confirmation of podcast addition to the podcast submitter

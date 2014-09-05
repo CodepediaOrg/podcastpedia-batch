@@ -9,8 +9,8 @@ import org.apache.velocity.exception.VelocityException;
 import org.podcastpedia.batch.common.configuration.MailConfiguration;
 import org.podcastpedia.batch.jobs.addpodcast.dao.ReadDao;
 import org.podcastpedia.batch.jobs.addpodcast.dao.ReadDaoImpl;
-import org.podcastpedia.batch.jobs.addpodcast.service.EmailNotificationService1;
-import org.podcastpedia.batch.jobs.addpodcast.service.EmailNotificationServiceImpl1;
+import org.podcastpedia.batch.jobs.addpodcast.service.EmailNotificationService;
+import org.podcastpedia.batch.jobs.addpodcast.service.EmailNotificationServiceImpl;
 import org.podcastpedia.batch.jobs.addpodcast.service.PodcastAndEpisodeAttributesService;
 import org.podcastpedia.batch.jobs.addpodcast.service.PodcastAndEpisodeAttributesServiceImpl;
 import org.podcastpedia.batch.jobs.addpodcast.service.SocialMediaService;
@@ -42,8 +42,8 @@ public class ServicesConfiguration {
 	}
 	
 	@Bean
-	public EmailNotificationService1 emailNotificationService1(){
-		return new EmailNotificationServiceImpl1();
+	public EmailNotificationService emailNotificationService1(){
+		return new EmailNotificationServiceImpl();
 	}
 	
 	@Bean
