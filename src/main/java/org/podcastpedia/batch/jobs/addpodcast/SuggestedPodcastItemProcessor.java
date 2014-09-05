@@ -73,6 +73,15 @@ public class SuggestedPodcastItemProcessor implements ItemProcessor<SuggestedPod
 		item.getPodcast().setCategories(categoriesByNames);
 		
 		//set the tags
+		setTagsForPodcast(item);
+		
+		//build the episodes 
+		setEpisodesForPodcast(item.getPodcast());
+		
+		return item;
+	}
+
+	private void setTagsForPodcast(SuggestedPodcast item) {
 		String[] tags = item.getTags().trim().split("\\s*,\\s*");
 		List<Tag> tagsByName = readDao.getTagsByNames(tags);		
 		
@@ -92,12 +101,6 @@ public class SuggestedPodcastItemProcessor implements ItemProcessor<SuggestedPod
 			}		 
 		}
 		item.getPodcast().setTags(podcastTags);
-
-		
-		//build the episodes 
-		setEpisodesForPodcast(item.getPodcast());
-		
-		return item;
 	}
 	
 	private boolean isPodcastAlreadyInTheDirectory(String url) {
