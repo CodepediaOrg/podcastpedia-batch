@@ -2,7 +2,7 @@ package org.podcastpedia.batch.jobs.notifysubscribers;
 
 import javax.sql.DataSource;
 
-import org.podcastpedia.batch.common.configuration.StandaloneInfrastructureConfiguration;
+import org.podcastpedia.batch.common.configuration.InfrastructureConfiguration;
 import org.podcastpedia.batch.common.entities.User;
 import org.podcastpedia.batch.common.listeners.LogProcessListener;
 import org.podcastpedia.batch.common.listeners.ProtocolListener;
@@ -25,7 +25,7 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 
 @Configuration
 @EnableBatchProcessing
-@Import({StandaloneInfrastructureConfiguration.class, NotifySubscribersServicesConfiguration.class})
+@Import({InfrastructureConfiguration.class, NotifySubscribersServicesConfiguration.class})
 public class NotifySubscribersJobConfiguration {
 
 	@Autowired

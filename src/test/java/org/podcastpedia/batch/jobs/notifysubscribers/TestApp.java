@@ -13,7 +13,7 @@ import org.podcastpedia.batch.common.entities.User;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(classes = {StandaloneInfrastructureConfiguration.class, NotifySubscribersServicesConfiguration.class})
+//@ContextConfiguration(classes = {InfrastructureConfiguration.class, NotifySubscribersServicesConfiguration.class})
 public class TestApp {
 
 //	@Autowired

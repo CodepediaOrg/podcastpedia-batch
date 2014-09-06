@@ -1,6 +1,6 @@
 package org.podcastpedia.batch.jobs.addpodcast;
 
-import org.podcastpedia.batch.common.configuration.StandaloneInfrastructureConfiguration;
+import org.podcastpedia.batch.common.configuration.InfrastructureConfiguration;
 import org.podcastpedia.batch.common.listeners.LogProcessListener;
 import org.podcastpedia.batch.common.listeners.ProtocolListener;
 import org.podcastpedia.batch.jobs.addpodcast.model.SuggestedPodcast;
@@ -27,7 +27,7 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 
 @Configuration
 @EnableBatchProcessing
-@Import({StandaloneInfrastructureConfiguration.class, ServicesConfiguration.class})
+@Import({InfrastructureConfiguration.class, ServicesConfiguration.class})
 public class AddPodcastJobConfiguration {
 
 	@Autowired
