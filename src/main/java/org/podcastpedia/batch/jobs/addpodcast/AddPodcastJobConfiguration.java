@@ -9,8 +9,8 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemProcessor;
-import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.LineMapper;
@@ -18,18 +18,22 @@ import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 
-import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+import java.io.File;
+import java.io.FileFilter;
 
 @Configuration
 @EnableBatchProcessing
 @Import({InfrastructureConfiguration.class, ServicesConfiguration.class})
 public class AddPodcastJobConfiguration {
 
+	public static final String OVERRIDEN_BY_EXPRESSION_VALUE = "overriden by expression value";
 	@Autowired
 	private JobBuilderFactory jobs;
  
@@ -48,25 +52,42 @@ public class AddPodcastJobConfiguration {
 	public Step step(){
 		return stepBuilderFactory.get("step")
 				.<SuggestedPodcast,SuggestedPodcast>chunk(1) //important to be one in this case to commit after every line read
-				.reader(reader())
+				.reader(reader(OVERRIDEN_BY_EXPRESSION_VALUE))
 				.processor(processor())
 				.writer(writer())
 				.listener(logProcessListener())
 				.faultTolerant()
 				.skipLimit(10) //default is set to 0
-				.skip(MySQLIntegrityConstraintViolationException.class)
+				.skip(Exception.class)
 				.build();
 	}	
 	
 	@Bean
-	public ItemReader<SuggestedPodcast> reader(){
+	@StepScope
+	public FlatFileItemReader<SuggestedPodcast> reader(@Value("#{jobParameters[directoryPath]}") String directoryPath){
 		FlatFileItemReader<SuggestedPodcast> reader = new FlatFileItemReader<SuggestedPodcast>();
 		reader.setLinesToSkip(1);//first line is title definition 
-		reader.setResource(new ClassPathResource("suggested-podcasts.in"));
+		reader.setResource(getFileFromDirectory(directoryPath));
 		reader.setLineMapper(lineMapper());
+
 		return reader; 
 	}
 
+	private Resource getFileFromDirectory(String directoryPath) {
+
+		File fl = new File(directoryPath);
+
+		File[] files = fl.listFiles(new FileFilter() {
+			@Override
+			public boolean accept(File file) {
+				return file.isFile();
+			}
+		});
+
+		if(files.length != 1) throw new RuntimeException("There must be only one file present in the folder to be processed");
+
+		return new FileSystemResource(files[0]);
+	}
 	@Bean
 	public LineMapper<SuggestedPodcast> lineMapper() {
 		DefaultLineMapper<SuggestedPodcast> lineMapper = new DefaultLineMapper<SuggestedPodcast>();
